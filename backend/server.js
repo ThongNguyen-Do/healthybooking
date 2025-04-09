@@ -19,6 +19,8 @@ mongoose.connect('mongodb://localhost:27017/healthybooking')
 // Router
 app.use('/api/auth', require('./router/auth.router'))
 app.use('/api/admin', require('./router/admin.router'))
+app.use('/api', require('./router/admin.router')) 
+
 
 // Test route
 app.get('/api/auth/test', (req, res) => {

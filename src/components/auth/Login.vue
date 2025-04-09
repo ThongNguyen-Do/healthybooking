@@ -51,7 +51,7 @@ const handleLogin = async () => {
         router.push('/doctor/schedule')
         break
       case 'admin':
-        router.push('/admin/users')
+      router.push('/admin/dashboard')
         break
       default:
         router.push('/')

@@ -5,16 +5,16 @@ import Home from '../pages/Home.vue'
 import Login from '../pages/Login.vue'
 import Register from '../pages/Register.vue'
 import BookAppointment from '../pages/BookAppointment.vue'
-import ManageUsers from '../pages/admin/ManageUsers.vue'
-import ManageDoctors from '../pages/admin/ManageDoctors.vue'
+import AdminDashboard from '../pages/admin/AdminDashboard.vue'
+// Nếu bạn có các trang riêng cho bác sĩ hoặc bệnh nhân, import ở đây
 
 const routes = [
   { path: '/', component: Home },
   { path: '/login', component: Login },
   { path: '/register', component: Register },
   { path: '/book', component: BookAppointment },
-  { path: '/admin/users', component: ManageUsers },
-  { path: '/admin/doctors', component: ManageDoctors }
+  { path: '/admin/dashboard', component: AdminDashboard },
+  // Có thể thêm các route khác như: /doctor/schedule, /admin/manage-doctors nếu cần
 ]
 
 const router = createRouter({
@@ -28,10 +28,9 @@ router.beforeEach((to, from, next) => {
   const role = localStorage.getItem('role')
 
   const protectedRoutes = {
-    '/appointments': ['patient'],
+    '/book': ['patient'],
     '/doctor/schedule': ['doctor'],
-    '/admin/users': ['admin'],
-    '/admin/doctors': ['admin'],
+    '/admin/dashboard': ['admin'],
   }
 
   if (to.path in protectedRoutes) {
@@ -43,7 +42,7 @@ router.beforeEach((to, from, next) => {
   next()
 })
 
-// ✅ Hàm logout tiện dụng nếu cần dùng
+// ✅ Hàm logout tiện dụng
 export const logout = () => {
   localStorage.clear()
   router.push('/login')

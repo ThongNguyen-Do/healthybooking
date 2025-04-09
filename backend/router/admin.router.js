@@ -3,7 +3,7 @@ const router = express.Router()
 const User = require('../models/User')
 const bcrypt = require('bcrypt')
 
-// Thêm bác sĩ mới
+// ✅ [POST] Thêm bác sĩ mới
 router.post('/doctors', async (req, res) => {
   try {
     const { email, password, fullName } = req.body
@@ -36,24 +36,70 @@ router.post('/doctors', async (req, res) => {
   }
 })
 
-// Lấy danh sách bác sĩ
+// ✅ [GET] Lấy danh sách bác sĩ
 router.get('/doctors', async (req, res) => {
   try {
     const doctors = await User.find({ role: 'doctor' }).select('-password')
     res.json(doctors)
   } catch (error) {
+    console.error('Lỗi khi lấy danh sách bác sĩ:', error)
     res.status(500).json({ message: 'Lỗi server' })
   }
 })
 
-// Lấy danh sách bệnh nhân
-router.get('/patients', async (req, res) => {
+// ✅ [GET] Lấy danh sách bệnh nhân (route đúng là /admin/users)
+router.get('/users', async (req, res) => {
   try {
     const patients = await User.find({ role: 'patient' }).select('-password')
     res.json(patients)
   } catch (error) {
+    console.error('Lỗi khi lấy danh sách bệnh nhân:', error)
     res.status(500).json({ message: 'Lỗi server' })
   }
 })
+router.put('/doctors/:id', async (req, res) => {
+  try {
+    const { id } = req.params
+    const { fullName, email } = req.body
+
+    const doctor = await User.findById(id)
+    if (!doctor) return res.status(404).json({ message: 'Bác sĩ không tồn tại' })
+
+    doctor.fullName = fullName
+    doctor.email = email
+    await doctor.save()
+
+    res.json({ message: '✅ Cập nhật bác sĩ thành công' })
+  } catch (error) {
+    console.error('❌ Lỗi khi cập nhật bác sĩ:', error)
+    res.status(500).json({ message: 'Lỗi server' })
+  }
+})
+router.delete('/doctors/:id', async (req, res) => {
+  try {
+    const { id } = req.params
+
+    const doctor = await User.findById(id)
+    if (!doctor) return res.status(404).json({ message: 'Bác sĩ không tồn tại' })
+
+    await doctor.deleteOne()
+
+    res.json({ message: '🗑 Đã xoá bác sĩ thành công' })
+  } catch (error) {
+    console.error('❌ Lỗi khi xoá bác sĩ:', error)
+    res.status(500).json({ message: 'Lỗi server' })
+  }
+})
+// [GET] /api/doctors/active
+router.get('/doctors/active', async (req, res) => {
+  try {
+    const doctors = await User.find({ role: 'doctor', status: 'active' }).select('fullName email')
+    res.json(doctors)
+  } catch (error) {
+    res.status(500).json({ message: 'Lỗi server khi lấy danh sách bác sĩ' })
+  }
+})
+
+
 
 module.exports = router
