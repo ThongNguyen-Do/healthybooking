@@ -1,8 +1,5 @@
 <template>
     <div class="home-container">
-   
-      
-  
       <!-- Hero Section -->
       <section class="hero">
         <h2>Chào mừng đến với hệ thống đặt lịch khám bệnh</h2>

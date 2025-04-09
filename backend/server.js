@@ -3,10 +3,9 @@ const mongoose = require('mongoose')
 const cors = require('cors')
 const app = express()
 
-// 👉 CORS phải đặt ngay đầu tiên
 app.use(cors({
-  origin: 'http://localhost:5173', // đúng cổng frontend
-  credentials: true
+  origin: 'http://localhost:5173', // đúng với frontend Vue Vite
+  credentials: true                // quan trọng nếu dùng cookie/token
 }))
 
 // Middleware để parse JSON body
@@ -19,6 +18,7 @@ mongoose.connect('mongodb://localhost:27017/healthybooking')
 
 // Router
 app.use('/api/auth', require('./router/auth.router'))
+app.use('/api/admin', require('./router/admin.router'))
 
 // Test route
 app.get('/api/auth/test', (req, res) => {
