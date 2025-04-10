@@ -53,21 +53,11 @@ const fetchDoctors = async () => {
 
 const submitAppointment = async () => {
   try {
-    const token = localStorage.getItem('token')
-
-    await axios.post(
-      '/appointments',
-      {
-        doctorId: form.value.doctorId,
-        date: form.value.date,
-        note: form.value.note
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      }
-    )
+    await axios.post('/appointment', {
+      doctorId: form.value.doctorId,
+      date: form.value.date,
+      note: form.value.note
+    })
 
     alert('🟢 Đặt lịch thành công!')
     form.value = { doctorId: '', date: '', note: '' }
@@ -79,6 +69,7 @@ const submitAppointment = async () => {
     )
   }
 }
+
 
 onMounted(() => {
   fetchDoctors()

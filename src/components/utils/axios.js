@@ -1,4 +1,4 @@
-// src/utils/axios.js
+// src/components/utils/axios.js
 import axios from 'axios'
 
 const instance = axios.create({
@@ -6,7 +6,21 @@ const instance = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
-  withCredentials: true, // nếu bạn dùng cookie để đăng nhập
+  withCredentials: true, // nếu bạn dùng cookie thì bật cái này
 })
+
+// ✅ THÊM INTERCEPTOR TỰ ĐỘNG GẮN TOKEN
+instance.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('token')
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`
+    }
+    return config
+  },
+  (error) => {
+    return Promise.reject(error)
+  }
+)
 
 export default instance

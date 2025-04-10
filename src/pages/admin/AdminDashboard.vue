@@ -59,7 +59,7 @@
     try {
       const [doctorRes, patientRes] = await Promise.all([
         axios.get('/admin/doctors'),
-        axios.get('/admin/patients'),
+        axios.get('/admin/users'), 
       ])
       doctors.value = doctorRes.data
       users.value = patientRes.data

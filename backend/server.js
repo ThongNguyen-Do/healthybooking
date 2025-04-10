@@ -19,7 +19,7 @@ mongoose.connect('mongodb://localhost:27017/healthybooking')
 // Router
 app.use('/api/auth', require('./router/auth.router'))
 app.use('/api/admin', require('./router/admin.router'))
-app.use('/api', require('./router/admin.router')) 
+app.use('/api/appointment', require('./router/appointment.router'))
 
 
 // Test route

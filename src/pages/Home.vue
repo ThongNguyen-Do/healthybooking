@@ -4,9 +4,6 @@
       <section class="hero">
         <h2>Chào mừng đến với hệ thống đặt lịch khám bệnh</h2>
         <p>Đặt lịch nhanh chóng, chính xác, tiện lợi mọi lúc mọi nơi.</p>
-        <router-link to="/book">
-          <button class="book-btn">Đặt lịch ngay</button>
-        </router-link>
       </section>
     </div>
   </template>
