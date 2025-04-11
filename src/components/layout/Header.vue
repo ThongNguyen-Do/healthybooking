@@ -10,7 +10,7 @@
   </template>
   
   <script setup>
-  // không cần gì thêm ở đây nếu chỉ là giao diện
+  
   </script>
   
   <style scoped>

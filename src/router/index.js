@@ -6,6 +6,8 @@ import Login from '../pages/Login.vue'
 import Register from '../pages/Register.vue'
 import BookAppointment from '../pages/BookAppointment.vue'
 import AdminDashboard from '../pages/admin/AdminDashboard.vue'
+import DoctorDashboard from '../pages/DoctorDashboard.vue'
+
 // Nếu bạn có các trang riêng cho bác sĩ hoặc bệnh nhân, import ở đây
 
 const routes = [
@@ -14,6 +16,8 @@ const routes = [
   { path: '/register', component: Register },
   { path: '/book', component: BookAppointment },
   { path: '/admin/dashboard', component: AdminDashboard },
+  { path: '/doctor/schedule', component: DoctorDashboard }
+
   // Có thể thêm các route khác như: /doctor/schedule, /admin/manage-doctors nếu cần
 ]
 

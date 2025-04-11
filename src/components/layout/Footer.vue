@@ -8,7 +8,7 @@
   </template>
   
   <script setup>
-  // Không cần gì ở đây, chỉ là hiển thị giao diện
+  
   </script>
   
   <style scoped>

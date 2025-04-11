@@ -1,4 +1,4 @@
-// src/components/utils/axios.js
+
 import axios from 'axios'
 
 const instance = axios.create({
@@ -6,10 +6,10 @@ const instance = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
-  withCredentials: true, // nếu bạn dùng cookie thì bật cái này
+  withCredentials: true, 
 })
 
-// ✅ THÊM INTERCEPTOR TỰ ĐỘNG GẮN TOKEN
+
 instance.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token')

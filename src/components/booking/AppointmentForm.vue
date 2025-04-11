@@ -11,6 +11,10 @@
         </option>
       </select>
 
+      <p v-if="doctors.length === 0" class="warning">
+        ⚠️ Hiện tại chưa có bác sĩ nào hoạt động.
+      </p>
+
       <label>Thời gian khám</label>
       <input type="datetime-local" v-model="form.date" required />
 
@@ -42,34 +46,37 @@ const fetchDoctors = async () => {
   try {
     const res = await axios.get('/admin/doctors/active')
     doctors.value = res.data
-
-    if (doctors.value.length === 0) {
-      console.warn('⚠️ Không có bác sĩ nào đang active.')
-    }
   } catch (err) {
-    console.error('Lỗi khi lấy danh sách bác sĩ:', err)
+    console.error('❌ Lỗi khi lấy danh sách bác sĩ:', err)
   }
 }
 
 const submitAppointment = async () => {
   try {
+    const appointmentDate = new Date(form.value.date)
+    const now = new Date()
+
+    if (appointmentDate <= now) {
+      alert('⛔ Vui lòng chọn thời gian trong tương lai.')
+      return
+    }
+
     await axios.post('/appointment', {
       doctorId: form.value.doctorId,
-      date: form.value.date,
+      date: appointmentDate.toISOString(),
       note: form.value.note
     })
 
     alert('🟢 Đặt lịch thành công!')
     form.value = { doctorId: '', date: '', note: '' }
   } catch (err) {
-    console.error('Lỗi đặt lịch:', err)
+    console.error('❌ Lỗi đặt lịch:', err)
     alert(
-      '❌ Không thể đặt lịch! ' +
+      'Không thể đặt lịch! ' +
         (err.response?.data?.message || err.message)
     )
   }
 }
-
 
 onMounted(() => {
   fetchDoctors()
@@ -110,5 +117,9 @@ button {
 }
 button:hover {
   background-color: #388e3c;
+}
+.warning {
+  margin-top: 0.5rem;
+  color: red;
 }
 </style>

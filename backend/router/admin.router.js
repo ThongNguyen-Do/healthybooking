@@ -3,7 +3,7 @@ const router = express.Router()
 const User = require('../models/User')
 const bcrypt = require('bcrypt')
 
-// ✅ [POST] Thêm bác sĩ mới
+
 router.post('/doctors', async (req, res) => {
   try {
     const { email, password, fullName } = req.body
@@ -36,7 +36,7 @@ router.post('/doctors', async (req, res) => {
   }
 })
 
-// ✅ [GET] Lấy danh sách bác sĩ
+
 router.get('/doctors', async (req, res) => {
   try {
     const doctors = await User.find({ role: 'doctor' }).select('-password')
@@ -47,7 +47,7 @@ router.get('/doctors', async (req, res) => {
   }
 })
 
-// ✅ [GET] Lấy danh sách bệnh nhân (route đúng là /admin/users)
+
 router.get('/users', async (req, res) => {
   try {
     const patients = await User.find({ role: 'patient' }).select('-password')
@@ -90,7 +90,7 @@ router.delete('/doctors/:id', async (req, res) => {
     res.status(500).json({ message: 'Lỗi server' })
   }
 })
-// [GET] /api/doctors/active
+
 router.get('/doctors/active', async (req, res) => {
   try {
     const doctors = await User.find({ role: 'doctor', status: 'active' }).select('fullName email')

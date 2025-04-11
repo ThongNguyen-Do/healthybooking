@@ -16,7 +16,8 @@
 
 <script setup>
 import { ref } from 'vue'
-import axios from 'axios'
+import axios from '@/components/utils/axios' 
+
 import { useRouter } from 'vue-router'
 
 const email = ref('')
@@ -26,7 +27,7 @@ const router = useRouter()
 
 const handleLogin = async () => {
   try {
-    errorMessage.value = '' // Reset lỗi mỗi lần login
+    errorMessage.value = ''
 
     const res = await axios.post('http://localhost:3000/api/auth/login', {
       email: email.value,
@@ -42,7 +43,7 @@ const handleLogin = async () => {
 
     alert('Đăng nhập thành công!')
 
-    // 🎯 Điều hướng theo vai trò
+    
     switch (role) {
       case 'patient':
         router.push('/book')
